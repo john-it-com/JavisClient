@@ -12,9 +12,14 @@ class Client
 {
 
     /**
+     * Javis Client version.
+     */
+    const VERSION_CLIENT = 1;
+
+    /**
      * @var APIAccessor
      */
-    protected $javisAPIAccessor;
+    protected $APIAccessor;
 
     /**
      * JavisAPIClient constructor.
@@ -22,7 +27,7 @@ class Client
      */
     public function __construct($endPointName)
     {
-        $this->javisAPIAccessor = new APIAccessor($endPointName);
+        $this->APIAccessor = new APIAccessor($endPointName);
     }
 
     /**
@@ -33,7 +38,7 @@ class Client
         $result = array();
 
         try {
-            $xml = $this->javisAPIAccessor->request('seminar');
+            $xml = $this->APIAccessor->request('seminar');
         } catch (\Exception $e) {
             return $result;
         }
@@ -48,6 +53,10 @@ class Client
         }
 
         return $result;
+    }
+
+    public function getRawData($path, $parameters=array(), $method=APIAccessor::HTTP_GET) {
+        return $this->APIAccessor->request($path, $parameters, $method);
     }
 
 }

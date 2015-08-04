@@ -16,11 +16,6 @@ class APIAccessor
     const VERSION_API = 1;
 
     /**
-     * Javis Library API version.
-     */
-    const VERSION_LIBRARY = 1;
-
-    /**
      * Javis API version.
      */
     const HTTP_GET = 0;
@@ -59,7 +54,7 @@ class APIAccessor
     }
 
     protected function getUserAgent() {
-        return 'Javis API Library v'.self::VERSION_LIBRARY;
+        return 'Javis API Library v'.Client::VERSION_CLIENT;
     }
 
     /**
