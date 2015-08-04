@@ -55,6 +55,32 @@ class Client
         return $result;
     }
 
+    /**
+     * @param $tag
+     * @return array
+     */
+    public function getSeminarsByTag($tag) {
+        $result = array();
+        $seminars = $this->getSeminars();
+        foreach($seminars as $seminar) {
+            /**
+             * @var Seminar $seminar
+             */
+            $tags = $seminar->getTags();
+            if($tags !== null && in_array($tag, $tags)) {
+                $result[] = $seminar;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @param $path
+     * @param array $parameters
+     * @param int $method
+     * @return SimpleXMLElement
+     * @throws APIException
+     */
     public function getRawData($path, $parameters=array(), $method=APIAccessor::HTTP_GET) {
         return $this->APIAccessor->request($path, $parameters, $method);
     }

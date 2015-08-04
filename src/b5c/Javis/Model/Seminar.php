@@ -70,6 +70,7 @@ class Seminar extends ModelBase
          * Strings
          */
         $this->setTitle((string) $element->title);
+
         $this->setSubtitle((string) $element->subtitle);
         $this->setNumber((string) $element->number);
         $this->setDescription((string) $element->description);
@@ -100,7 +101,8 @@ class Seminar extends ModelBase
         /*
          * Resources
          */
-        $this->setResources((array) $element->xpath('resources')[0]);
+	$resources = $element->xpath('resources');
+        $this->setResources((array) $resources[0]);
 
     }
 
