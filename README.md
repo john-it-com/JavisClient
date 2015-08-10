@@ -20,7 +20,7 @@ Der Client kann anschließend mit folgendem Aufruf instanziert werden:
 
     $client = new \b5c\Javis\Client('example');
     
-Dabei ist `example` mit dem Namen der eigenen Instanz zu ersätzen.
+Dabei ist `example` mit dem Namen der eigenen Instanz zu ersetzen.
 
 ## Vorhandene Methoden
 
