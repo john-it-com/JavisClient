@@ -1,6 +1,6 @@
 {
   "name": "b5c/javis-client",
-  "description": "Javis PHP Client for the Web API.",
+  "description": "PHP Client for the Javis web API.",
   "version": "1.0.0",
   "type": "library",
   "homepage": "http://www.javis.de",
