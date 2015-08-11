@@ -1,6 +1,24 @@
 {
   "name": "b5c/javis-client",
+  "description": "Javis PHP Client for the Web API.",
   "version": "1.0.0",
+  "type": "library",
+  "homepage": "http://www.javis.de",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Marvin Rabe",
+      "email": "me@marvinrabe.de",
+      "homepage": "http://marvinrabe.de/",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "support@javis.de"
+  },
+  "require": {
+    "php": ">=5.3.0"
+  },
   "autoload": {
     "psr-4": {
       "": "src/"
