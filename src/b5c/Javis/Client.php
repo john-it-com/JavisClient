@@ -1,6 +1,7 @@
 <?php
 
 namespace b5c\Javis;
+
 use b5c\Javis\Model\Seminar;
 use SimpleXMLElement;
 
@@ -31,9 +32,11 @@ class Client
     }
 
     /**
-     * @return array
+     * @param callable|null $filter function to filter seminars
+     * @param callable|null $sort function to sort seminars
+     * @return Seminar[]
      */
-    public function getSeminars()
+    public function getSeminars($filter = null, $sort = null)
     {
         $result = array();
 
@@ -44,34 +47,37 @@ class Client
         }
 
         $seminars = $xml->xpath('seminars/seminar');
-        if($seminars instanceof SimpleXMLElement) {
+
+        if ($seminars instanceof SimpleXMLElement) {
             $result[] = new Seminar($seminars);
         } else {
-            foreach($seminars as $seminar) {
+            foreach ($seminars as $seminar) {
                 $result[] = new Seminar($seminar);
             }
+        }
+
+        if ($filter !== null) {
+            $result = array_filter($result, $filter);
+        }
+
+        if ($sort !== null) {
+            usort($result, $sort);
         }
 
         return $result;
     }
 
     /**
-     * @param $tag
-     * @return array
+     * @deprecated Please use getSeminars and write your own filter function.
+     * @param string $tag
+     * @return Seminar[]
      */
-    public function getSeminarsByTag($tag) {
-        $result = array();
-        $seminars = $this->getSeminars();
-        foreach($seminars as $seminar) {
-            /**
-             * @var Seminar $seminar
-             */
+    public function getSeminarsByTag($tag)
+    {
+        return $this->getSeminars(function(Seminar $seminar) use ($tag) {
             $tags = $seminar->getTags();
-            if($tags !== null && in_array($tag, $tags)) {
-                $result[] = $seminar;
-            }
-        }
-        return $result;
+            return $tags !== null && in_array($tag, $tags);
+        });
     }
 
     /**
@@ -81,7 +87,8 @@ class Client
      * @return SimpleXMLElement
      * @throws APIException
      */
-    public function getRawData($path, $parameters=array(), $method=APIAccessor::HTTP_GET) {
+    public function getRawData($path, $parameters = array(), $method = APIAccessor::HTTP_GET)
+    {
         return $this->APIAccessor->request($path, $parameters, $method);
     }
 

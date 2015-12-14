@@ -215,7 +215,7 @@ class Seminar extends ModelBase
     }
 
     /**
-     * @return array
+     * @return Appointment[]
      */
     public function getAppointments()
     {
