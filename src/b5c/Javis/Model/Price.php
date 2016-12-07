@@ -53,6 +53,25 @@ class Price extends ModelBase
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return number_format($this->gross, 2, ",", ".") . ' ' . $this->getCurrencySymbol();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrencySymbol()
+    {
+        if ($this->currency == self::CURRENCY_EURO) {
+            return '€';
+        }
+        return $this->currency;
+    }
+    
+    /**
      * @return float
      */
     public function getNet()
