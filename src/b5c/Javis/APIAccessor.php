@@ -83,9 +83,14 @@ class APIAccessor
             throw new APIException('Error: "' . curl_error($this->curl).'"');
         }
 
-        $xml = simplexml_load_string($response);
+        $xml = simplexml_load_string($this->utf8_for_xml($response));
 
         return $xml;
+    }
+
+    private function utf8_for_xml($string)
+    {
+        return preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
     }
 
     /**
